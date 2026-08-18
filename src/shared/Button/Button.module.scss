@@ -1,0 +1,154 @@
+.button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	font-weight: 500;
+	line-height: 100%;
+	border-radius: 8px;
+	border: none;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	white-space: nowrap;
+	user-select: none;
+
+	&.sm {
+		height: 38px;
+		padding: 0 12px;
+		font-size: 12px;
+
+		.icon {
+			width: 16px;
+			height: 16px;
+		}
+	}
+
+	&.md {
+		height: 46px;
+		padding: 0 16px;
+		font-size: 14px;
+
+		.icon {
+			width: 20px;
+			height: 20px;
+		}
+	}
+
+	&.lg {
+		height: 52px;
+		padding: 0 24px;
+		font-size: 16px;
+
+		.icon {
+			width: 24px;
+			height: 24px;
+		}
+	}
+
+	&.iconOnly {
+		padding: 0;
+		aspect-ratio: 1;
+
+		&.sm {
+			width: 38px;
+		}
+		&.md {
+			width: 46px;
+		}
+		&.lg {
+			width: 52px;
+		}
+	}
+
+	&.invisible {
+		color: #8496af;
+		font-weight: 400;
+		background: #dce7f1;
+		box-shadow: 0px 10px 15px 0px #00000012;
+
+		&:hover {
+			background: #cddce9;
+			transform: translateY(-2px);
+			box-shadow: 0 4px 12px rgba(132, 150, 175, 0.25);
+		}
+
+		&:active {
+			transform: scale(0.96);
+		}
+	}
+
+	&.primary {
+		color: white;
+		background: #429eff;
+
+		&:hover {
+			background: #2b8beb;
+			transform: translateY(-2px);
+			box-shadow: 0 4px 12px rgba(66, 158, 255, 0.35);
+		}
+
+		&:active {
+			transform: scale(0.96);
+		}
+	}
+
+	&.icon {
+		background: #eaf5ff;
+		border: none;
+		border-radius: 6px;
+
+		&:hover {
+			background: #d4ebff;
+			transform: translateY(-2px);
+			box-shadow: 0 4px 12px rgba(66, 158, 255, 0.25);
+		}
+
+		&:active {
+			transform: scale(0.92);
+		}
+
+		.icon {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+	}
+
+	&.outline {
+		color: #35373a;
+		background: white;
+		border: 1px solid #dce7f1;
+		border-radius: 6px;
+
+		&:hover {
+			background: #eaf5ff;
+			border-color: #429eff;
+			transform: translateY(-2px);
+			box-shadow: 0 4px 12px rgba(66, 158, 255, 0.15);
+		}
+
+		&:active {
+			transform: scale(0.92);
+		}
+	}
+
+	.icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		transition: transform 0.2s ease;
+
+		img {
+			width: 100%;
+			height: 100%;
+			display: block;
+		}
+	}
+
+	&:hover {
+		.icon {
+			transform: scale(1.1);
+		}
+	}
+}

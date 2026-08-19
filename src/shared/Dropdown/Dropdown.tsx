@@ -13,7 +13,7 @@ interface DropdownProps {
 	onChange?: (value: string) => void
 	disabled?: boolean
 	size?: 'sm' | 'md' | 'lg'
-	required?: boolean 
+	required?: boolean
 }
 
 export const Dropdown = ({
@@ -80,7 +80,13 @@ export const Dropdown = ({
 					type='button'
 					disabled={disabled}
 				>
-					<span className={s.value}>{selectedLabel || placeholder}</span>
+					<span
+						className={classNames(s.value, {
+							[s.placeholder]: !selectedLabel,
+						})}
+					>
+						{selectedLabel || placeholder}
+					</span>
 					<img
 						src={down}
 						alt=''

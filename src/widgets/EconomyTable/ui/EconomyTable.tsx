@@ -24,7 +24,7 @@ const mockData = [
 		contractor: 'ООО "Название компании"',
 		deliveryNumber: '123123123123123',
 		quantity: 1,
-		status: 'Принят без расхождения',
+		status: 'Принят без расхождений',
 		receptionDate: '27.07.2024 12:00',
 		amount: '100 000,00',
 		comment: 'Первый заказ для МП',
@@ -48,7 +48,7 @@ const mockData = [
 		contractor: 'ИП Петров Петр Петрович',
 		deliveryNumber: '456456456456456',
 		quantity: 3,
-		status: 'В обработке',
+		status: 'Зарезервирован',
 		receptionDate: '28.07.2024 15:30',
 		amount: '250 500,50',
 		comment: 'Срочный заказ',
@@ -60,7 +60,7 @@ const mockData = [
 		contractor: 'ИП Сидорова Мария Ивановна',
 		deliveryNumber: '789789789789789',
 		quantity: 2,
-		status: 'Отправлен',
+		status: 'В пути до МП',
 		receptionDate: '29.07.2024 10:00',
 		amount: '75 200,00',
 		comment: '',
@@ -72,7 +72,7 @@ const mockData = [
 		contractor: 'ООО "Подсолнух"',
 		deliveryNumber: '321321321321321',
 		quantity: 5,
-		status: 'Доставлен',
+		status: 'Принят без расхождений',
 		receptionDate: '30.07.2024 18:20',
 		amount: '500 000,00',
 		comment: 'Частичная поставка',
@@ -84,7 +84,7 @@ const mockData = [
 		contractor: 'ИП Козлов Дмитрий Сергеевич',
 		deliveryNumber: '654654654654654',
 		quantity: 1,
-		status: 'Отменен',
+		status: 'Не зарезервирован',
 		receptionDate: '31.07.2024 09:00',
 		amount: '30 000,00',
 		comment: 'Отказ от поставки',
@@ -96,12 +96,27 @@ const mockData = [
 		contractor: 'ИП Смирнова Анна Викторовна',
 		deliveryNumber: '987987987987987',
 		quantity: 4,
-		status: 'Завершен',
+		status: 'Принят с расхождениями',
 		receptionDate: '01.08.2024 14:00',
 		amount: '180 750,25',
 		comment: 'Доп. соглашение №1',
 	},
 ]
+
+const statusColors: Record<string, string> = {
+	'Не зарезервирован': '#FF5E5B',
+	Зарезервирован: '#FFAA5B',
+	'В пути до МП': '#429EFF',
+	'Принят без расхождений': '#1AB889',
+	'Принят с расхождениями': '#FF5E5B',
+}
+
+const hexToRgba = (hex: string, alpha: number) => {
+	const r = parseInt(hex.slice(1, 3), 16)
+	const g = parseInt(hex.slice(3, 5), 16)
+	const b = parseInt(hex.slice(5, 7), 16)
+	return `rgba(${r}, ${g}, ${b}, ${alpha})`
+}
 
 const columns = [
 	{ key: 'id', title: '№', width: '70px' },
@@ -115,21 +130,14 @@ const columns = [
 		title: 'СТАТУС',
 		width: '180px',
 		render: (item: EconomyData) => {
-			const statusColors: Record<string, string> = {
-				'Принят без расхождения': '#1AB889',
-				'Не зарезервирован': '#ff9500',
-				'В обработке': '#429eff',
-				Отправлен: '#5ac8fa',
-				Доставлен: '#34c759',
-				Отменен: '#ff5e5b',
-				Завершен: '#34c759',
-			}
+			const color = statusColors[item.status] || '#5a6c7d'
 
 			return (
 				<span
 					className={s.status}
 					style={{
-						color: statusColors[item.status] || '#5a6c7d',
+						color,
+						background: hexToRgba(color, 0.12),
 					}}
 				>
 					{item.status}
@@ -146,8 +154,6 @@ const columns = [
 		render: (item: EconomyData) => (
 			<span
 				style={{
-					fontWeight: 600,
-					color: '#1a2332',
 					whiteSpace: 'nowrap',
 				}}
 			>

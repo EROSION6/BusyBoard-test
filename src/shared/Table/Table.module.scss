@@ -54,10 +54,14 @@
 				}
 			}
 
+			&.muted td {
+				color: #8496af;
+			}
+
 			td {
 				padding: 12px 16px;
 				border-bottom: 1px solid #dce7f1;
-				color: #1a2332;
+				color: #35373a;
 				font-size: 14px;
 				vertical-align: middle;
 			}

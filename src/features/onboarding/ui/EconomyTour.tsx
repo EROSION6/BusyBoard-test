@@ -1,5 +1,13 @@
 import { useEffect, useState } from 'react'
-import { Joyride, type EventData, type Step } from 'react-joyride'
+import {
+	Joyride,
+	type EventData,
+	type Step,
+	type TooltipRenderProps,
+} from 'react-joyride'
+import IcClose from '../../../shared/assets/ic_close.svg'
+import { Button } from '../../../shared/Button/Button'
+import styles from './EconomyTour.module.scss'
 
 interface EconomyTourProps {
 	run: boolean
@@ -10,28 +18,79 @@ const steps: Step[] = [
 	{
 		target: 'body',
 		placement: 'center',
+		title: 'Заявки на поставку',
 		content:
 			'Добро пожаловать в раздел заявки на поставку! Тут вы можете создать заявку на поставку и она появится в вашем кабинете или выгрузить уже созданные, чтобы на основе них создать отгрузки.',
 	},
 	{
 		target: '.tour-download-btn',
 		placement: 'bottom',
+		title: 'Выгрузка заявок',
 		content:
 			'Нажмите на эту кнопку, чтобы подтянуть актуальные заявки на поставку.',
 	},
 	{
 		target: '.tour-create-btn',
 		placement: 'bottom',
+		title: 'Создание заявки',
 		content:
 			'Супер! Теперь давайте создадим свою собственную заявку на поставку!',
 	},
 	{
 		target: 'body',
 		placement: 'center',
+		title: 'Готово!',
 		content:
 			'Вы большой молодец! Поздравляем с освоением нового раздела, надеюсь, он принесет вам много пользы!',
 	},
 ]
+
+const CustomTooltip = ({
+	step,
+	tooltipProps,
+	primaryProps,
+	backProps,
+	closeProps,
+	isLastStep,
+	index,
+	size,
+}: TooltipRenderProps) => {
+	return (
+		<div {...tooltipProps} className={styles.tooltip}>
+			<div className={styles.header}>
+				{step.title && <div className={styles.title}>{step.title}</div>}
+
+				<button
+					{...closeProps}
+					aria-label='Закрыть'
+					className={styles.closeButton}
+				>
+					<img src={IcClose} alt='' />
+				</button>
+			</div>
+
+			<div className={styles.content}>{step.content}</div>
+
+			<div className={styles.footer}>
+				<span className={styles.stepCounter}>
+					Шаг {index + 1} из {size}
+				</span>
+
+				<div className={styles.buttonsGroup}>
+					{index > 0 && (
+						<Button {...backProps} variant="outline" size="md" className={styles.button}>
+							Назад
+						</Button>
+					)}
+
+					<Button {...primaryProps} variant='primary' size="md" className={styles.button}>
+						{isLastStep ? 'Завершить' : 'Далее'}
+					</Button>
+				</div>
+			</div>
+		</div>
+	)
+}
 
 export const EconomyTour = ({ run, onFinish }: EconomyTourProps) => {
 	const [isMobile, setIsMobile] = useState(false)
@@ -68,6 +127,7 @@ export const EconomyTour = ({ run, onFinish }: EconomyTourProps) => {
 			run={run}
 			onEvent={handleEvent}
 			continuous
+			tooltipComponent={CustomTooltip}
 			options={{
 				zIndex: 999999,
 				primaryColor: '#429EFF',
@@ -77,35 +137,12 @@ export const EconomyTour = ({ run, onFinish }: EconomyTourProps) => {
 			}}
 			styles={{
 				tooltip: {
-					width: isMobile ? 'calc(100vw - 32px)' : 365,
+					width: isMobile ? 'calc(100vw - 32px)' : 400,
 					maxWidth: 'calc(100vw - 32px)',
-					borderRadius: 14,
 					padding: 0,
-					boxShadow: '0 8px 30px rgba(0, 0, 0, 0.16)',
-					paddingTop: 10,
 				},
-
-				tooltipContent: {
-					padding: '16px 20px 4px',
-					fontSize: 14,
-					lineHeight: 1.45,
-				},
-
-				tooltipFooter: {
-					padding: '4px 20px 12px',
-					display: 'flex',
-					alignItems: 'center',
-					justifyContent: 'space-between',
-				},
-
 				overlay: {
 					transition: 'opacity 250ms ease',
-				},
-
-				buttonBack: {
-					border: 'none',
-					outline: 'none',
-					boxShadow: 'none',
 				},
 			}}
 			locale={{

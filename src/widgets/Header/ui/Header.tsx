@@ -17,6 +17,7 @@ const navigation = [
 		title: 'Избранное',
 		href: '/favorites',
 		icon: star,
+		active: true,
 	},
 	{
 		title: 'Финансы',
@@ -40,14 +41,18 @@ export const Header = ({ isTourActive = false }: HeaderProps) => {
 	return (
 		<header className={`${s.container} ${isTourActive ? s.tourActive : ''}`}>
 			<div className={s.container_left}>
-				<a href='/' className={s.logo}>
-					<img src={logo} alt='Логотип' />
+				<a href="/" className={s.logo}>
+					<img src={logo} alt="Логотип" />
 				</a>
 
 				<nav className={s.navigation}>
-					{navigation.map(({ title, href, icon }) => (
-						<a key={href} href={href}>
-							{icon && <img src={icon} alt='' />}
+					{navigation.map(({ title, href, icon, active }) => (
+						<a
+							key={href}
+							href={href}
+							className={active ? s.active : ''}
+						>
+							{icon && <img src={icon} alt="" />}
 							{title}
 						</a>
 					))}
@@ -56,9 +61,9 @@ export const Header = ({ isTourActive = false }: HeaderProps) => {
 
 			<div className={s.container_right}>
 				<div className={s.btns}>
-					<button className={s.setting} type='button'>
+					<button className={s.setting} type="button">
 						<span>
-							<img src={setting} alt='' />
+							<img src={setting} alt="" />
 						</span>
 						<p>
 							Продолжить <br />
@@ -66,14 +71,14 @@ export const Header = ({ isTourActive = false }: HeaderProps) => {
 						</p>
 					</button>
 
-					<button className={s.sub} type='button'>
+					<button className={s.sub} type="button">
 						<span>0</span>
 						<p>Для продолжения продлите подписку</p>
 					</button>
 
-					<button className={s.check} type='button'>
+					<button className={s.check} type="button">
 						<span>
-							<img src={check} alt='' />
+							<img src={check} alt="" />
 						</span>
 						<p>Чеклист запуска </p>
 						<p>2/12</p>
@@ -81,21 +86,21 @@ export const Header = ({ isTourActive = false }: HeaderProps) => {
 				</div>
 
 				<div className={s.right_info}>
-					<button className={s.tabs} type='button'>
+					<button className={s.tabs} type="button">
 						ГК ТУЗЕМУН
-						<img src={down} alt='' />
+						<img src={down} alt="" />
 					</button>
 
-					<button type='button' aria-label='Уведомления'>
-						<img src={notification} alt='' />
+					<button type="button" aria-label="Уведомления">
+						<img src={notification} alt="" />
 					</button>
 
-					<button type='button' aria-label='Справка'>
-						<img src={book} alt='' />
+					<button type="button" aria-label="Справка">
+						<img src={book} alt="" />
 					</button>
 
-					<button type='button' aria-label='Профиль'>
-						<img src={user} alt='' />
+					<button type="button" aria-label="Профиль">
+						<img src={user} alt="" />
 					</button>
 				</div>
 			</div>

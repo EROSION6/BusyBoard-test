@@ -1,34 +1,48 @@
 .pagination {
-	display: flex;
-	align-items: center;
-	flex-wrap: wrap;
-	gap: 16px;
-	padding: 16px 0;
+	position: relative;
 	background: white;
+	padding-top: 12px;
+
+	.progressBar {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 4px;
+		border-radius: 4px;
+		background: #a9b8ce;
+		transition: width 0.25s ease;
+	}
+
+	.row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 16px;
+		padding: 16px 0;
+	}
 
 	.controls {
 		display: flex;
 		align-items: center;
-		gap: 4px;
+		gap: 8px;
 
 		.arrow {
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			width: 32px;
-			height: 32px;
-			border-radius: 6px;
+			width: 24px;
+			height: 24px;
+			border-radius: 8px;
 			border: none;
-			color: #1a2332;
+			background: transparent;
+			color: #8496af;
 			cursor: pointer;
 			transition: all 0.2s ease;
 
 			&:hover:not(:disabled) {
 				background: #eaf5ff;
-				border-color: #429eff;
 				color: #429eff;
-				transform: translateY(-1px);
-				box-shadow: 0 2px 8px rgba(66, 158, 255, 0.15);
 			}
 
 			&:active:not(:disabled) {
@@ -36,40 +50,43 @@
 			}
 
 			&:disabled {
-				opacity: 0.4;
 				cursor: not-allowed;
 			}
 		}
 
 		.page {
-			min-width: 32px;
-			height: 32px;
-			padding: 0 6px;
+			width: 38px;
+			height: 38px;
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			border: 1px solid transparent;
-			border-radius: 6px;
-			background: transparent;
-			color: #1a2332;
+			border: 1px solid #dce7f1;
+			border-radius: 8px;
+			background: white;
+			color: #35373a;
 			font-size: 14px;
+			font-weight: 500;
 			cursor: pointer;
 			transition: all 0.2s ease;
 
-			&:hover:not(.active) {
+			&:hover:not(.active):not(:disabled) {
 				background: #eaf5ff;
-				border-color: #dce7f1;
+				border-color: #429eff;
+				color: #429eff;
 			}
 
 			&.active {
 				background: #429eff;
 				color: white;
 				border-color: #429eff;
-				box-shadow: 0 2px 8px rgba(66, 158, 255, 0.25);
 			}
 
-			&:active {
+			&:active:not(:disabled) {
 				transform: scale(0.95);
+			}
+
+			&:disabled {
+				cursor: not-allowed;
 			}
 		}
 
@@ -77,9 +94,9 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			min-width: 32px;
-			height: 32px;
-			color: #5a6c7d;
+			width: 38px;
+			height: 38px;
+			color: #8496af;
 			font-size: 14px;
 			user-select: none;
 		}
@@ -88,28 +105,79 @@
 	.pageSize {
 		display: flex;
 		align-items: center;
-		gap: 8px;
+		gap: 10px;
 		font-size: 14px;
-		color: #5a6c7d;
+		color: #35373a;
 
-		select {
-			padding: 4px 8px;
+		.sizeDropdown {
+			position: relative;
+		}
+
+		.sizeTrigger {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			min-width: 60px;
+			height: 38px;
+			padding: 0 12px;
 			border: 1px solid #dce7f1;
-			border-radius: 6px;
+			border-radius: 8px;
 			background: white;
-			font-size: 14px;
 			color: #1a2332;
+			font-size: 14px;
 			cursor: pointer;
-			outline: none;
 			transition: border-color 0.2s ease;
 
 			&:hover {
 				border-color: #429eff;
 			}
+		}
 
-			&:focus {
-				border-color: #429eff;
-				box-shadow: 0 0 0 3px rgba(66, 158, 255, 0.15);
+		.sizeArrow {
+			flex-shrink: 0;
+			color: #8496af;
+			transition: transform 0.25s ease;
+
+			&.rotated {
+				transform: rotate(180deg);
+			}
+		}
+
+		.sizeMenu {
+			position: absolute;
+			top: calc(100% + 6px);
+			right: 0;
+			min-width: 100%;
+			background: white;
+			border: 1px solid #dce7f1;
+			border-radius: 8px;
+			box-shadow: 0px 10px 30px 0px #00000012;
+			z-index: 10;
+			padding: 4px;
+		}
+
+		.sizeOption {
+			display: flex;
+			align-items: center;
+			width: 100%;
+			height: 32px;
+			padding: 0 10px;
+			border: none;
+			border-radius: 6px;
+			background: transparent;
+			color: #35373a;
+			font-size: 14px;
+			cursor: pointer;
+			transition: all 0.15s ease;
+
+			&:hover {
+				background: #eaf5ff;
+				color: #429eff;
+			}
+
+			&.sizeOptionActive {
+				background: #429eff;
+				color: white;
 			}
 		}
 	}
@@ -117,16 +185,18 @@
 
 @media (max-width: 768px) {
 	.pagination {
-		flex-direction: column;
-		align-items: center;
-		gap: 12px;
+		.row {
+			flex-direction: column;
+			align-items: center;
+			gap: 12px;
+		}
 
 		.controls {
 			.arrow,
 			.page,
 			.dots {
-				width: 28px;
-				height: 28px;
+				width: 30px;
+				height: 30px;
 				font-size: 13px;
 			}
 		}
@@ -143,8 +213,8 @@
 			.arrow,
 			.page,
 			.dots {
-				width: 24px;
-				height: 24px;
+				width: 28px;
+				height: 28px;
 				font-size: 12px;
 			}
 		}
@@ -152,9 +222,9 @@
 		.pageSize {
 			font-size: 12px;
 
-			select {
+			.sizeTrigger {
+				height: 32px;
 				font-size: 12px;
-				padding: 2px 6px;
 			}
 		}
 	}

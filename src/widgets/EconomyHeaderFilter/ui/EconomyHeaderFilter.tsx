@@ -23,17 +23,19 @@ export const EconomyHeaderFilter = () => {
 					/>
 				</div>
 
-				<Button variant='icon' size='md'>
-					<img src={bookmark} alt='' />
-				</Button>
+				<div className={s.btn_icon}>
+					<Button variant='icon' size='md'>
+						<img src={bookmark} alt='' />
+					</Button>
 
-				<Button variant='icon' size='md'>
-					<img src={erase} alt='' />
-				</Button>
+					<Button variant='icon' size='md'>
+						<img src={erase} alt='' />
+					</Button>
 
-				<Button variant='icon' size='md'>
-					<img src={search} alt='' />
-				</Button>
+					<Button variant='icon' size='md'>
+						<img src={search} alt='' />
+					</Button>
+				</div>
 			</div>
 
 			<div className={s.right}>

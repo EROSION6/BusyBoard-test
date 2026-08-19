@@ -18,6 +18,7 @@ interface TableProps<T> {
 	onRowClick?: (item: T) => void
 	loading?: boolean
 	emptyText?: string
+	getRowClassName?: (item: T) => string | undefined
 }
 
 export const Table = <T extends Record<string, any>>({
@@ -27,6 +28,7 @@ export const Table = <T extends Record<string, any>>({
 	onRowClick,
 	loading = false,
 	emptyText = 'Нет данных',
+	getRowClassName,
 }: TableProps<T>) => {
 	const tableClass = classNames(s.table, className)
 
@@ -80,7 +82,10 @@ export const Table = <T extends Record<string, any>>({
 						<tr
 							key={index}
 							onClick={() => onRowClick?.(item)}
-							className={onRowClick ? s.clickable : ''}
+							className={classNames(
+								onRowClick && s.clickable,
+								getRowClassName?.(item),
+							)}
 						>
 							{columns.map(column => (
 								<td

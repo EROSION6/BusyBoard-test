@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { type ReactNode } from 'react'
+import { type MouseEventHandler, type ReactNode } from 'react'
 import s from './Button.module.scss'
 
 interface ButtonProps {
@@ -7,7 +7,7 @@ interface ButtonProps {
 	variant?: 'primary' | 'icon' | 'outline' | 'invisible'
 	size?: 'sm' | 'md' | 'lg'
 	className?: string
-	onClick?: () => void
+	onClick?: MouseEventHandler<HTMLButtonElement>
 	type?: 'button' | 'submit' | 'reset'
 	icon?: ReactNode
 }
@@ -20,6 +20,7 @@ export const Button = ({
 	onClick,
 	type = 'button',
 	icon,
+	...props
 }: ButtonProps) => {
 	const buttonClass = classNames(
 		s.button,
@@ -32,7 +33,7 @@ export const Button = ({
 	)
 
 	return (
-		<button className={buttonClass} onClick={onClick} type={type}>
+		<button {...props} className={buttonClass} onClick={onClick} type={type}>
 			{icon && <span className={s.icon}>{icon}</span>}
 			{children && <span className={s.text}>{children}</span>}
 		</button>

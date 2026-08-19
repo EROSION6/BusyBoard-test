@@ -1,0 +1,67 @@
+.tooltip {
+	width: 400px;
+	max-width: calc(100vw - 32px);
+	background: #fff;
+	border-radius: 16px;
+	box-shadow: 0 8px 30px rgba(0, 0, 0, 0.16);
+	padding-top: 14px;
+}
+
+.header {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	padding: 0 14px;
+}
+
+.title {
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 1.3;
+	color: #35373a;
+}
+
+.closeButton {
+	background: none;
+	border: none;
+	padding: 4px;
+	margin: 0;
+	cursor: pointer;
+	line-height: 0;
+	flex-shrink: 0;
+}
+
+.content {
+	padding: 6px 14px 8px;
+	font-size: 15px;
+	line-height: 1.45;
+	color: #35373a;
+}
+
+.footer {
+	padding: 0 14px 14px;
+	display: flex;
+	align-items: end;
+	justify-content: space-between;
+	gap: 12px;
+}
+
+.stepCounter {
+	font-size: 13px;
+	color: #8a8f97;
+	white-space: nowrap;
+}
+
+.buttonsGroup {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.button{
+	padding: 0 24px !important;
+}
+
+.overlay {
+	transition: opacity 250ms ease;
+}

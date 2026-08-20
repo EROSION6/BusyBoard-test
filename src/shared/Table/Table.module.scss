@@ -29,6 +29,17 @@
 				background: #eaf5ff;
 				z-index: 10;
 
+				&:not(:last-child)::after {
+					content: '';
+					position: absolute;
+					right: 0;
+					top: 50%;
+					transform: translateY(-50%);
+					width: 1px;
+					height: 40%;
+					background: #dce7f1;
+				}
+
 				.header_th {
 					display: flex;
 					justify-content: space-between;

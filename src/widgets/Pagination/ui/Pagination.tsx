@@ -1,5 +1,6 @@
 import classNames from 'classnames'
 import { useEffect, useRef, useState } from 'react'
+import arrow from '../../../shared/assets/arrow.svg'
 import s from './Pagination.module.scss'
 
 interface PaginationProps {
@@ -153,23 +154,13 @@ export const Pagination = ({
 								onClick={() => setIsSizeOpen(prev => !prev)}
 							>
 								{pageSize}
-								<svg
-									width='10'
-									height='10'
-									viewBox='0 0 16 16'
-									fill='none'
+								<img
+									src={arrow}
+									alt=''
 									className={classNames(s.sizeArrow, {
 										[s.rotated]: isSizeOpen,
 									})}
-								>
-									<path
-										d='M4 6L8 10L12 6'
-										stroke='currentColor'
-										strokeWidth='1.5'
-										strokeLinecap='round'
-										strokeLinejoin='round'
-									/>
-								</svg>
+								/>
 							</button>
 
 							{isSizeOpen && (
